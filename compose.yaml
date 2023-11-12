@@ -1,0 +1,25 @@
+services:
+  python3.10.13:
+    container_name: python
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - type: bind
+        source: .
+        target: /projects
+    ports:
+      - 8888:8888
+    env_file:
+      - .env
+    networks:
+      - default
+    # おまじない
+    restart: always
+    tty: true
+    stdin_open: true
+
+networks:
+  default:
+    name: ${USER_NAME}
+    external: true
